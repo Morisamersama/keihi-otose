@@ -1,4 +1,4 @@
-const CACHE_NAME = 'keihi-otose-v1';
+const CACHE_NAME = 'keihi-otose-v3';
 const ASSETS = [
   '/keihi-otose/',
   '/keihi-otose/index.html',
@@ -22,7 +22,6 @@ self.addEventListener('activate', e => {
 });
 
 self.addEventListener('fetch', e => {
-  e.respondWith(
-    caches.match(e.request).then(cached => cached || fetch(e.request))
-  );
+  // キャッシュを使わず常に最新を取得（開発中）
+  e.respondWith(fetch(e.request).catch(() => caches.match(e.request)));
 });
